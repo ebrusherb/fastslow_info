@@ -1,0 +1,4 @@
+interaction_matric(1,0,0,1)
+}
+source("/Users/eleanorbrush/Dropbox/fastslow_info/selection.R")
+good.mut(10,.9,1,.9,1,.5,.5,.5)

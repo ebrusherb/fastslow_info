@@ -1,0 +1,115 @@
+\documentclass{article}
+\usepackage{latexsym}
+\usepackage{amssymb,amsmath}
+\usepackage{custom2}
+\usepackage{graphicx} % for figures
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage{amssymb,amsfonts}
+\usepackage[all,arc]{xy}
+\usepackage{enumerate}
+\usepackage{mathrsfs}
+\usepackage{booktabs}
+\usepackage{lscape}
+\usepackage{hyperref}
+\captionsetup{justification=RaggedRight, singlelinecheck=false}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\newcommand{\argmax}{\text{argmax}}
+\newcommand{\del}[2]{\frac{\partial #1 }{\partial #2}}
+\newcommand{\Tr}{\text{Tr}}
+%\newtheorem{claim}{Claim}
+
+\addtolength{\evensidemargin}{-7.5in}
+\addtolength{\oddsidemargin}{-.5in}
+%\addtolength{\textwidth}{1.4in}
+%\addtolength{\textheight}{1.4in}
+\addtolength{\textwidth}{1.4in}
+\addtolength{\textheight}{1.4in}
+\addtolength{\topmargin}{-.5in}
+
+
+%\pagestyle{empty}
+\pagestyle{headings}
+
+
+\begin{document}
+\title{Plans for Model Extensions}
+\maketitle
+
+In the basic model, there are three interaction types: cooperators, defectors, and discriminators.  The discriminators gather, store, and use information about their peers.  The collection of information is parameterized by the frequency of observation, $f_\text{o}$.  Previously, the storage of information was parametrized by the probability of remembering, $p_\text{r}$. We could also parametrize it with a memory loss parameter dictating the rate at which memories decay. In the previous model, discriminators used information about their peers by cooperating with agents they had seen cooperate and defecting against agents they had seen defect, first order indirect reciprocity.  We could also consider second order norms.  These rules specify how to interact with an agent based on both his observed action and the identity of his past interaction partner.  As such, they can be described by a $2\times 2$ matrix with the rows representing the behavior of the agent and the columns representing the type of his interaction partner and where the entries show the effect of the behaviors on the reputation of the agent:
+$$
+\begin{array}{ccccc}
+ &\vline& C & D 
+\\\hline C &\vline & +1 & j
+\\ D & \vline & -1 & +1 
+\end{array}
+$$
+There are $2^4$ possible social norms, but there are two popular variants, stern and mild judging where $j=-1$ and $j=1$ respectively.  We could allow a discriminator to choose between these alternatives with a probability $p_\text{s}$. We could also consider the so-called ``leading eight" social norms and consider them as discrete discriminator types, perhaps considering group selection between groups using different social norms.  To summarize, there are three dimensions of information behavior:
+\begin{enumerate}
+\item collection, parameterized by $f_\text{o}$ 
+\item storage, parametrized by $p_\text{r}$ or memory loss
+\item usage, parametrized by $p_\text{s}$
+\end{enumerate}
+
+In previous work, I derived the following payoff for each of the three interaction types, which depend on the information behaviors of the discriminators: 
+\begin{align*}
+P_{\text{def}}&=bRx_{\text{coop}}+p_sb(R-\overline{K})x_{\text{disc}}
+\\P_{\text{coop}}&=P_\text{def}-cR+b\overline{K}x_{\text{disc}}
+\\P_{\text{disc}}&=P_\text{def}-c(R-\overline{K})p_s-c\overline{K}x_\text{coop}+(b-c)\overline{G}x_\text{disc}-s
+\end{align*}
+If we subtract $P_\text{def}$ from each payoff function we get
+\begin{align*}
+P_\text{coop}&=-cR+b\overline{K}x_\text{disc}
+\\ P_\text{def}&=0
+\\ P_\text{disc}&=-c(R-\overline{K})p_s-c\overline{K}x_\text{coop}+(b-c)\overline{G}x_\text{disc}-s
+\\\overline{P}&=x_{\text{coop}}P_{\text{coop}}+x_{\text{def}}P_{\text{def}}+x_{\text{disc}}P_{\text{disc}}
+\end{align*}  
+The replicator equations describing how the frequencies of the three interaction types change over time are given by 
+\begin{equation}
+\dot{x}_i=x_i(P_i-\overline{P}). \label{replicator}
+\end{equation}
+
+I will use fast-slow dynamics to model the evolution of information behaviors. Let $s_r(m)$ denote the growth rate of a mutant discriminator with trait $m$ in a resident population of discriminators with trait $r$. The following equation describes how the information trait $y$ will change over time:
+\begin{equation}
+\lambda \frac{dy}{dt}(x_1,x_2,x_3,y)=\frac{\partial s_{y}}{\partial m}\bigg|_{m=y}
+\end{equation}
+This fast-slow formalism allows us to impose a timescale separation between the replicator dynamics and the adaptive dynamics and the two extreme cases, $\lambda=0$ and $\lambda=\infty$, can be studied analytically.  If $\lambda=\infty$, then $\vec{x}$ changes infinitely quickly with respect to the trait $y$, for instant if the replicator dynamics happen on ecological timescales and $y$ changes on an evolutionary timescale.  If $\lambda=0$, then $x$ changes infinitely quickly with respect to the frequencies $\vec{x}$, for instant if discriminators can learn how to use information given the environment set by the type frequencies. For $\lambda=0$, I will identify the critical manifold $x^*=C(x_1,x_2,x_3)$ such that $y^*$ is a stable equilibrium if $x_1,x_2,x_3$ are fixed. Once $y$ reaches this critical value, the replicator dynamics give the gradient describing how the type frequencies should change. The converse of this procedure will show us how $y$ evolves if it changes more slowly than the type frequencies. I can also study an intermediate situation where the type frequencies and the trait change on similar frequencies, which would require numerical analysis.  
+
+This model will allow us to describe the evolution of not just one but multiple information traits together.  Having multiple traits changing will require us to consider
+\begin{itemize}
+\item the cost of increasing information gathering, storage, and more complicated processing
+\item tradeoffs between the traits, e.g. if making more observations means you get to interact less frequently or off making more observations also tends to increase memory
+\end{itemize}
+
+{\bf Big questions:}
+
+\begin{enumerate}
+\item At equilibrium, what information behaviors strategy will discriminators use?
+\item Does allowing the information traits to evolve stabilize cooperation, destabilize cooperation, or neither?
+\item How does this depend on the timescale separation, i.e. whether information traits change more or less quickly than the type frequencies?
+\end{enumerate}
+
+{\bf Steps:}
+\begin{enumerate}
+\item evolution of $f_\text{o}$ under extreme cases $\lambda=0$ and $\lambda=\infty$
+\item evolution of $f_\text{o}$ at intermediate timescale separation
+\item evolution of $f_\text{o}$ and $p_\text{s}$ under extreme cases
+\item group selection between groups with discriminators using different social norms
+\end{enumerate}
+
+{\bf Points to keep in mind:}
+\begin{itemize}
+\item read up on trait tradeoff analysis \cite{deMazancourt:2004uq}, critical function analysis, and evolutionary branching
+\item it seems likely that we will observe oscillations in the amount of information discriminators have and the frequency of cooperators as a high frequency of cooperators will make information superfluous and when information decreases defectors will be able to invade more easily
+\item it's been observed previously that the Kandori social norms requires discriminators to have a lot of information so we should keep in mind whether our results corroborate or question this claim
+\end{itemize}
+
+
+\bibliographystyle{plain}
+%\bibliographystyle{apa-good}
+\vspace{-20pt}
+\bibliography{fastslow_info}
+\end{document}
+
+

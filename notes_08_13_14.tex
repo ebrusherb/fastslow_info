@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage{latexsym}
+\usepackage{amssymb,amsmath}
+\usepackage{custom2}
+\usepackage{graphicx} % for figures
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage{amssymb,amsfonts}
+\usepackage[all,arc]{xy}
+\usepackage{enumerate}
+\usepackage{mathrsfs}
+\usepackage{booktabs}
+\usepackage{lscape}
+\usepackage{hyperref}
+\captionsetup{justification=RaggedRight, singlelinecheck=false}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\newcommand{\argmax}{\text{argmax}}
+\newcommand{\del}[2]{\frac{\partial #1 }{\partial #2}}
+\newcommand{\Tr}{\text{Tr}}
+%\newtheorem{claim}{Claim}
+
+\addtolength{\evensidemargin}{-7.5in}
+\addtolength{\oddsidemargin}{-.5in}
+%\addtolength{\textwidth}{1.4in}
+%\addtolength{\textheight}{1.4in}
+\addtolength{\textwidth}{1.4in}
+\addtolength{\textheight}{1.4in}
+\addtolength{\topmargin}{-.5in}
+
+
+%\pagestyle{empty}
+\pagestyle{headings}
+
+
+\begin{document}
+\title{Plans for Model Extensions}
+\maketitle
+
+I would like to extend our previous work on the replicator dynamics of three types of agents-- cooperators, defectors, and discriminators-- by consdiering the evolution of the discriminators' information gathering traits.  The discriminators have two traits that dictate how they gather information and, consequently, how much information they have.  These are the frequency of observation, $f_\text{o}$, and the probability of remembering, $p_\text{r}$. For simplicity I will only allow one of these traits, $f_\text{o}$, to evolve.  (My justification for this is that if I want to consider a scenario in which the trait is learned rather than inherited, it seems more likely that a discriminator could learn how frequently to make observations than that he could learn how much to remember.)  
+
+In the previous model, I derived the following payoff for each of the three interaction types, which depend on the information behaviors of the discriminators: 
+\begin{align*}
+P_{\text{def}}&=bRx_{\text{coop}}+p_sb(R-\overline{K})x_{\text{disc}}
+\\P_{\text{coop}}&=P_\text{def}-cR+b\overline{K}x_{\text{disc}}
+\\P_{\text{disc}}&=P_\text{def}-c(R-\overline{K})p_s-c\overline{K}x_\text{coop}+(b-c)\overline{G}x_\text{disc}-s
+\end{align*}
+If we subtract $P_\text{def}$ from each payoff function we get
+\begin{align*}
+P_\text{coop}&=-cR+b\overline{K}x_\text{disc}
+\\ P_\text{def}&=0
+\\ P_\text{disc}&=-c(R-\overline{K})p_s-c\overline{K}x_\text{coop}+(b-c)\overline{G}x_\text{disc}-s
+\\\overline{P}&=x_{\text{coop}}P_{\text{coop}}+x_{\text{def}}P_{\text{def}}+x_{\text{disc}}P_{\text{disc}}
+\end{align*}  
+The replicator equations describing how the frequencies of the three interaction types change over time are given by 
+\begin{equation}
+\dot{x}_i=x_i(P_i-\overline{P}). \label{replicator}
+\end{equation}
+Let $s_r(m)$ denote the growth rate of a mutant discriminator with trait $m$ in a resident population of discriminators with trait $r$. The following equation describes how the information trait $f_\text{o}$ will change over time:
+\begin{equation}
+\lambda \frac{df_\text{o}}{dt}(x_1,x_2,x_3,f_\text{o})=\frac{\partial s_{f_\text{o}}}{\partial m}\bigg|_{m=f_\text{o}}
+\end{equation}
+If $\lambda=\infty$, then $\vec{x}$ changes infinitely quickly with respect to the trait $f_\text{o}$, for instant if the replicator dynamics happen on ecological timescales and $f_\text{o}$ changes on an evolutionary timescale.  If $\lambda=0$, then $f_\text{o}$ changes infinitely quickly with respect to the frequencies $\vec{x}$, for instant if discriminators can learn how to make observations given the environment set by the type frequencies. This fast-slow formalism allows us to impose a timescale separation between the replicator dynamics and the adaptive dynamics. I could also study an intermediate situation where the type frequencies and the trait change on similar frequencies, which would require numerical analysis.
+
+While I allow $f_\text{o}$  
+
+With this  model  I hope to answer the following questions.
+
+\begin{enumerate}
+\item At equilibrium, what strategy $f_\text{o}$ will discriminators use?
+\item Does allowing the information trait $f_\text{o}$ to evolve stabilize cooperation, destabilize cooperation, or neither?
+\item How does this depend on the timescale separation, i.e. whether $f_\text{o}$ changes more or less quickly than the type frequencies?
+\end{enumerate}
+
+To answer these questions, I will start the extreme cases $\lambda=0$ and $\lambda=\infty$.  For $\lambda=0$, I will identify the critical manifold $f_\text{o}^*=C(x_1,x_2,x_3)$ such that $f_\text{o}^*$ is a stable equilibrium if $x_1,x_2,x_3$ are fixed. Once $f_\text{o}$ reaches this critical value, the replicator dynamics give the gradient describing how the type frequencies should change. The converse of this procedure will show us how $f_\text{o}$ evolves if it changes more slowly than the type frequencies.
+
+
+\end{document}
+
+
