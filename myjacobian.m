@@ -1,6 +1,7 @@
 function J=myjacobian(X,b,c,R,po,rhoinfo,pr,s,ps,rhoint)
-X=col(X);
-X=round(X*100000)/100000;
+X=col(X); %NEW
+X=round(X*100000)/100000; %NEW
+
 J=zeros(3,3);
 p=payoffs_assortment(X,b,c,R,po,rhoinfo,pr,s,ps,rhoint);
 p=p-p(2);
@@ -23,7 +24,7 @@ end
 
 if sum(X==0)<2
     check=[1;2;3];
-    step=.001;
+    step=.00001;
     for j=[1,3]
        change=(check==j)*step;
        change(2)=-step;

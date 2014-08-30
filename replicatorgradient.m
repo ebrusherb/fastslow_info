@@ -16,6 +16,7 @@ p(2)=b*X(2,1)+b*ps*(R-k2)*X(2,3);
 p(3)=b*X(3,1)+b*ps*(R-k3)*X(3,3)-c*ps*(R-k1*X(3,1)-k2*X(3,2)-k3*X(3,3))-c*k1*X(3,1)+(b-c)*g*X(3,3)-s;
 
 p=p-p(2);
+% p=round(p*10000)/10000;
 pbar=sum(p.*x);
 advantage=p-pbar;
 grad=x.*advantage;
