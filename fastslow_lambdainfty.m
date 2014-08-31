@@ -1,8 +1,8 @@
 R=10;
 b=10;
 c=1;
-ps=.3;
-s=0.004;
+ps=.5;
+s=0.00;
 rhoinfo=1.01;
 rhoint=1.01;
 %with rhoint=0 why is stability not continuous wrt po?!?
