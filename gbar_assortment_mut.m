@@ -27,7 +27,13 @@ function G=gbar_assortment_mut(R,po,poprime,rhoinfo,pr,prprime,x1,x3,x4,ps,rhoin
             Gnew(1,2) = (t-1)*pr*pomat(1,4)*ps + pr*pomat(1,4)*X(4,1)*k(2,1)-pr*pomat(1,4)*ps*(X(4,1)*k(2,1)+X(4,2)*k(2,2)+X(4,3)*k(2,3)+X(4,4)*k(2,4))+pr*pomat(1,4)*X(4,3)*G(2,1)+pr*pomat(1,4)*X(4,4)*G(2,2)+pr*(1-pomat(1,4))*G(1,2);
             Gnew(2,1) = (t-1)*prprime*pomat(2,3)*ps + prprime*pomat(2,3)*X(3,1)*k(1,1)-prprime*pomat(2,3)*ps*(X(3,1)*k(1,1)+X(3,2)*k(1,2)+X(3,3)*k(1,3)+X(3,4)*k(1,4))+prprime*pomat(2,3)*X(3,3)*G(1,1)+prprime*pomat(2,3)*X(3,4)*G(1,2)+prprime*(1-pomat(2,3))*G(2,1);
             Gnew(2,2) = (t-1)*prprime*pomat(2,4)*ps + prprime*pomat(2,4)*X(4,1)*k(2,1)-prprime*pomat(2,4)*ps*(X(4,1)*k(2,1)+X(4,2)*k(2,2)+X(4,3)*k(2,3)+X(4,4)*k(2,4))+prprime*pomat(2,4)*X(4,3)*G(2,1)+prprime*pomat(2,4)*X(4,4)*G(2,2)+prprime*(1-pomat(2,4))*G(2,2);
+%             
+% %pharanthesising things differently
+%             Gnew(1,1) = pr*(pomat(1,3)*((t-1)*ps + X(3,1)*k(1,1)-ps*(X(3,1)*k(1,1)+X(3,2)*k(1,2)+X(3,3)*k(1,3)+X(3,4)*k(1,4))+X(3,3)*G(1,1)+X(3,4)*G(1,2))+(1-pomat(1,3))*G(1,1));
+%             Gnew(1,2) = pr*(pomat(1,4)*((t-1)*ps + X(4,1)*k(2,1)-ps*(X(4,1)*k(2,1)+X(4,2)*k(2,2)+X(4,3)*k(2,3)+X(4,4)*k(2,4))+X(4,3)*G(2,1)+X(4,4)*G(2,2))+(1-pomat(1,4))*G(1,2));
+%             Gnew(2,1) = prprime*(pomat(2,3)*((t-1)*ps + X(3,1)*k(1,1)-ps*(X(3,1)*k(1,1)+X(3,2)*k(1,2)+X(3,3)*k(1,3)+X(3,4)*k(1,4))+X(3,3)*G(1,1)+X(3,4)*G(1,2))+(1-pomat(2,3))*G(2,1));
+%             Gnew(2,2) = prprime*(pomat(2,4)*((t-1)*ps + X(4,1)*k(2,1)-ps*(X(4,1)*k(2,1)+X(4,2)*k(2,2)+X(4,3)*k(2,3)+X(4,4)*k(2,4))+X(4,3)*G(2,1)+X(4,4)*G(2,2))+(1-pomat(2,4))*G(2,2));
             G=Gnew;
         end
     end
-    
+    G=round(G*10e8)/10e8;

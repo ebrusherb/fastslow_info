@@ -1,5 +1,5 @@
-function X = interaction_matrix(x,rho)
-%     x=round(x*1000000)/1000000;
+function X = interaction_matrix_round(x,rho)
+    x=round(x*100000)/100000;
     X=zeros(3,3);
     X(3,1)=x(1)/(x(1)+x(2)+rho*x(3));
     X(3,2)=x(2)/(x(1)+x(2)+rho*x(3));

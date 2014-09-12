@@ -36,6 +36,13 @@ p(4)=b*X(4,1)+b*ps*(R-k(1,4))*X(4,3)+b*g(1,2)*X(4,3)+b*ps*(R-k(2,4))*X(4,4)+b*g(
 
 P(:,1)=[-c*k(1,1)*X(3,1),-c*ps*(R-k(1,1)*X(3,1)-k(1,2)*X(3,2)-k(1,3)*X(3,3)-k(1,4)*X(3,4)),+b*g(1,1)*X(3,3),-c*g(1,1)*X(3,3)];
 P(:,2)=[-c*k(2,1)*X(4,1),-c*ps*(R-k(2,1)*X(4,1)-k(2,2)*X(4,2)-k(2,3)*X(4,3)-k(2,4)*X(4,4)),+b*g(1,2)*X(4,3),-c*g(2,1)*X(4,3)];
+
+% %the following is wrong, but i wanted to get around some rounding errors
+%temporarily
+% P(:,1)=[-c*k(1,1)*X(3,1),-c*ps*(R-k(1,1)*X(3,1)-k(1,2)*X(3,2)-k(1,3)*X(3,3)-k(1,4)*X(3,4)),+b*g(1,1),-c*g(1,1)];
+% P(:,2)=[-c*k(2,1)*X(4,1),-c*ps*(R-k(2,1)*X(4,1)-k(2,2)*X(4,2)-k(2,3)*X(4,3)-k(2,4)*X(4,4)),+b*g(1,2),-c*g(2,1)];
+
+%shorter version
 % P(:,1)=[-c*k(1,1)*X(3,1),-c*ps*(R-k(1,1)*X(3,1)-k(1,2)*X(3,2)-k(1,3)*X(3,3)-k(1,4)*X(3,4)),+b*g(1,1)*X(3,3)];
 % P(:,2)=[-c*k(2,1)*X(4,1),-c*ps*(R-k(2,1)*X(4,1)-k(2,2)*X(4,2)-k(2,3)*X(4,3)-k(2,4)*X(4,4)),+b*g(1,2)*X(4,3)];
 % to known cooperators, to strangers, from residents to good, to good residents

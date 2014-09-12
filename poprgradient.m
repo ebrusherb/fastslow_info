@@ -2,8 +2,10 @@ function grad = poprgradient(x,b,c,R,po,rhoinfo,pr,s,ps,rhoint)
 
 sign=[-1 1]; 
 
-podelta=.0001;
-prdelta=.0001;
+% podelta=.0001;
+% prdelta=.0001;
+podelta=.01;
+prdelta=.01;
 tol=1e-10;
 
 invasionrate=zeros(2,2);

@@ -2,10 +2,12 @@ R=10;
 b=10;
 c=1;
 ps=.5;
-s=0.00;
-rhoinfo=1.01;
-rhoint=1.01;
-%with rhoint=0 why is stability not continuous wrt po?!?
+s=.00;
+rhoinfo=1;
+rhoint=1;
+%with rhoint=1 why is stability not continuous wrt po?!?
+%i think with rhoinfo=1;rhoint=1;s=0;ps=.5 the landscape is totally
+%neutral.  TRUE?!?!? WHY?!?!? 
 %%
 povals=0:.1:1;
 Npo=length(povals);
@@ -42,6 +44,7 @@ for i=1:Npo
         grad2d(j,i,:)=grad;
     end
 end
+
 [xcoord,ycoord]=meshgrid(povals,prvals);
 xcoord=col(xcoord);
 ycoord=col(ycoord);
@@ -56,7 +59,7 @@ imagesc(povals,prvals,transpose(stabeq(:,:,1)))
 set(gca,'YDir','normal')
 set(gca,'xlim',[0 1],'ylim',[0 1])
 hold on
-quiver(xcoord,ycoord,scale*sgn(grad2d_nanrm(:,1)),scale*sgn(grad2d_nanrm(:,2)),'Color','white')
+quiver(xcoord,ycoord,scale*(grad2d_nanrm(:,1)),scale*(grad2d_nanrm(:,2)),'Color','white')
 hold off
 
 %% mutual invasibility ?!? looks like not.

@@ -1,8 +1,19 @@
 %figuring out why there are gradients even when the costs are the same
 
+%interesting [ps s po pr rhoinfo rhoint]
+% 
+% ans =
+% 
+%   Columns 1 through 5
+% 
+%     0.5000         0    1.0000    1.0000    1.0300
+% 
+%   Column 6
+% 
+%     1.0700
 %%
-povals=0.2:.2:1;
-prvals=0.2:.2:1;
+povals=0.2:.1:1;
+prvals=0.2:.1:1;
 postep=.01;
 prstep=.01;
 Npo=length(povals);
@@ -39,12 +50,14 @@ for i=1:Npo
             prprime=pr;
             P=compare_payoffs(x,b,c,R,po,poprime,rhoinfo,pr,prprime,s,ps,rhoint);
             diff=P(:,2)-P(:,1);
-            selection_components(i,j,1,:)=sgn(grad(1))*(diff/sum(abs(diff)));
+%             selection_components(i,j,1,:)=sgn(grad(1))*(diff/sum(abs(diff)));
+            selection_components(i,j,1,:)=sgn(grad(1))*diff;
             poprime=po;
             prprime=pr+sgn(grad(2))*prstep;
             P=compare_payoffs(x,b,c,R,po,poprime,rhoinfo,pr,prprime,s,ps,rhoint);
             diff=P(:,2)-P(:,1);
-            selection_components(i,j,2,:)=sgn(grad(2))*(diff/sum(abs(diff)));
+%             selection_components(i,j,2,:)=sgn(grad(2))*(diff/sum(abs(diff)));
+            selection_components(i,j,2,:)=sgn(grad(2))*diff;
         end        
 %         P = payoffs_divided(x,b,c,R,po,rhoinfo,pr,s,ps,rhoint);
 %         payoff_mat(i,j,:)=P;
@@ -60,64 +73,64 @@ figure
 subplot(figsize(1),figsize(2),sub2ind(fliplr(figsize),1,1))
 imagesc(povals,prvals,transpose(selection_components(:,:,1,1)))
 set(gca,'ydir','normal')
-caxis manual
-caxis([m M]);
+% caxis manual
+% caxis([m M]);
 title('Costs to cooperators')
 colorbar
 
 subplot(figsize(1),figsize(2),sub2ind(fliplr(figsize),2,1))
 imagesc(povals,prvals,transpose(selection_components(:,:,1,2)))
 set(gca,'ydir','normal')
-caxis manual
-caxis([m M]);
+% caxis manual
+% caxis([m M]);
 title('Costs to strangers')
 colorbar
 
 subplot(figsize(1),figsize(2),sub2ind(fliplr(figsize),4,1))
 imagesc(povals,prvals,transpose(selection_components(:,:,1,4)))
 set(gca,'ydir','normal')
-caxis manual
-caxis([m M]);
+% caxis manual
+% caxis([m M]);
 title('Costs to discriminators')
 colorbar
 
 subplot(figsize(1),figsize(2),sub2ind(fliplr(figsize),3,1))
 imagesc(povals,prvals,transpose(selection_components(:,:,1,3)))
 set(gca,'ydir','normal')
-caxis manual
-caxis([m M]);
+% caxis manual
+% caxis([m M]);
 title('Benefit from being thought to be good')
 colorbar
 
 subplot(figsize(1),figsize(2),sub2ind(fliplr(figsize),1,2))
 imagesc(povals,prvals,transpose(selection_components(:,:,2,1)))
 set(gca,'ydir','normal')
-caxis manual
-caxis([m M]);
+% caxis manual
+% caxis([m M]);
 title('Costs to cooperators')
 colorbar
 
 subplot(figsize(1),figsize(2),sub2ind(fliplr(figsize),2,2))
 imagesc(povals,prvals,transpose(selection_components(:,:,2,2)))
 set(gca,'ydir','normal')
-caxis manual
-caxis([m M]);
+% caxis manual
+% caxis([m M]);
 title('Costs to strangers')
 colorbar
 
 subplot(figsize(1),figsize(2),sub2ind(fliplr(figsize),3,2))
 imagesc(povals,prvals,transpose(selection_components(:,:,2,3)))
 set(gca,'ydir','normal')
-caxis manual
-caxis([m M]);
+% caxis manual
+% caxis([m M]);
 title('Benefit from being thought to be good')
 colorbar
 
 subplot(figsize(1),figsize(2),sub2ind(fliplr(figsize),4,2))
 imagesc(povals,prvals,transpose(selection_components(:,:,2,4)))
 set(gca,'ydir','normal')
-caxis manual
-caxis([m M]);
+% caxis manual
+% caxis([m M]);
 title('Costs to discriminators')
 colorbar
 
@@ -138,6 +151,21 @@ imagesc(povals,prvals,transpose(gmat))
 set(gca,'ydir','normal')
 title('G')
 colorbar
+
+%%
+v=col(selection_components(:,:,1,2));
+v2=col(kmat);
+% smallindices=find(v<.19);
+% subset=[3 9 10 11];
+% smallindices=smallindices(subset);
+
+% smallindices=[21 22 23 24 25 16 17];
+% smallindices=[21:25];
+% smallindices=16:17;
+smallindices=[21 22 23 16 17];
+[rows, cols]=ind2sub([Npo Npr],smallindices);
+bigindices=sub2ind([Npo Npr 2 3],rows,cols,1*ones(size(rows)),3*ones(size(rows)));
+
 
 %%
 totalindices=Npo*Npr*2*3;
@@ -205,19 +233,6 @@ plot(col(kmat),col(coopfreq),'o')
 hold on
 plot(col(kmat(smallindices)),col(coopfreq(smallindices)),'or','MarkerSize',5)
 xlabel('Knowledge');ylabel('Coop freq')
-%%
-v=col(selection_components(:,:,1,2));
-v2=col(kmat);
-% smallindices=find(v<.19);
-% subset=[3 9 10 11];
-% smallindices=smallindices(subset);
-
-% smallindices=[21 22 23 24 25 16 17];
-% smallindices=[21:25];
-% smallindices=16:17;
-smallindices=[21 22 23 16 17];
-[rows, cols]=ind2sub([Npo Npr],smallindices);
-bigindices=sub2ind([Npo Npr 2 3],rows,cols,1*ones(size(rows)),3*ones(size(rows)));
 
 %okay so i can show how selection depends on coop freq, knowledge, and
 %knowledge of goodness!  that's great!  and additionally i see that
