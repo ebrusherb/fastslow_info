@@ -1,10 +1,10 @@
 R=10;
 b=10;
 c=1;
-ps=.5;
+ps=.4;
 s=.00;
 rhoinfo=1;
-rhoint=1;
+rhoint=1.1;
 %with rhoint=1 why is stability not continuous wrt po?!?
 %i think with rhoinfo=1;rhoint=1;s=0;ps=.5 the landscape is totally
 %neutral.  TRUE?!?!? WHY?!?!? 
@@ -25,7 +25,8 @@ for i=1:Npo
 %     e=[e;1 0 0; 0 1 0; 0 0 1];
     V=stability_coop(b,c,R,po,rhoinfo,pr,s,ps,rhoint);
     V=real(V);
-    stable=(sum(V<=0,1)==2);
+    V=round(V*10000)/10000;
+    stable=(sum(V<0,1)==2);
     if sum(stable)>0
         stabeq(i,j,:)=e(find(stable>0,1,'first'),:);
     end
